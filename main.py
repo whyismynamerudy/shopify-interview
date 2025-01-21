@@ -15,6 +15,8 @@ If you get matched with youself, everything starts again.
 # represent everybody reminaing in a list
 # represent people chosen so far in a set - maybe
 
+# one way thing
+
 class GiftExchange:
     def __init__(self, n: int, relationship: dict): # n is number of people in the team
         self.n = n
@@ -36,21 +38,34 @@ class GiftExchange:
         #     remove person from teammates
 
         for i in range(self.n):
-            if i in self.matched.values():
-                # person i has been matched to someone else prior
-                continue
-            else:
+            # if i in self.matched.values():
+            #     # person i has been matched to someone else prior
+            #     continue
+            # else:
                 # get a random idx in self.teammates
-                import random
+            import random
+            j = random.choice(self.teammates)
+            while j == i or (i in self.relationship and j == self.relationship[i]):
                 j = random.choice(self.teammates)
-                while j == i or j == self.relationship[i]:
-                    j = random.choice(self.teammates)
 
-                self.matched[i] = j
-                self.teammates.remove(j)
+            self.matched[i] = j
+            self.teammates.remove(j)
 
         return self.matched
     
 
 # test
+# my_test = GiftExchange(4, {})
+# print(my_test.match())
+# {0: 1, 1: 3, 2: 0, 3: 2}
+
+# my_test = GiftExchange(4, {0: 2})
+# print(my_test.match())
+# {0: 1, 1: 2, 2: 3, 3: 0}
+
+my_test = GiftExchange(5, {0: 2})
+print(my_test.match())
+# {0: 4, 1: 2, 3: 0}
+
+
         
